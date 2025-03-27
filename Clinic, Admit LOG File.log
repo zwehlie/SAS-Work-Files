@@ -1,0 +1,32 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - SFA T&R, Site 70086763.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+      SAS/ETS 15.3
+      SAS/IML 15.3
+      SAS/QC 15.3
+
+WARNING: Your system is scheduled to expire on October 1, 2024, which is 41 days from now. The SAS
+         System will no longer function on or after that date. Please contact your SAS Installation
+         Representative to obtain your updated SAS Installation Data (SID) file, which includes
+         SETINIT information.
+To locate the name of your SAS Installation Representative go to http://support.sas.com/repfinder and
+provide your site number 70086763 and company name as KENNESAW STATE UNIVERSITY - SFA T&R. On the SAS
+REP list provided, locate the REP for operating system Windows.
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.22631  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.13 seconds
+      cpu time            0.40 seconds
+
+WARNING: The Base SAS Software product with which RESULTS is associated will be expiring soon, and is
+WARNING: currently in warning mode to indicate this upcoming expiration. Please run PROC SETINIT to
+WARNING: obtain more information on your warning period.

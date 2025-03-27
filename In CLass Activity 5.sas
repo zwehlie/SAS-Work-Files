@@ -1,0 +1,17 @@
+libname class 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files';
+proc contents data=class.Claims;
+run;
+proc sort data= class.Claims;
+by dos decending charges;
+run;
+data cumulative_total;
+   set CLASS.CLAIMS;
+   by dos;
+   retain cum_total 0;
+   if first.dos then cum_total = 0;
+   cum_total + charges;
+run;
+proc print data=cumulative_total;
+   var dos charges cum_total;
+   title "Cumulative Total Data after Each Day";
+run;

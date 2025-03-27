@@ -1,0 +1,567 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - SFA T&R, Site 70086763.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+      SAS/ETS 15.3
+      SAS/IML 15.3
+      SAS/QC 15.3
+
+WARNING: Your system is scheduled to expire on October 1, 2024, which is 20 days from now. The SAS
+         System will no longer function on or after that date. Please contact your SAS Installation
+         Representative to obtain your updated SAS Installation Data (SID) file, which includes
+         SETINIT information.
+To locate the name of your SAS Installation Representative go to http://support.sas.com/repfinder and
+provide your site number 70086763 and company name as KENNESAW STATE UNIVERSITY - SFA T&R. On the SAS
+REP list provided, locate the REP for operating system Windows.
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.22631  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.45 seconds
+      cpu time            0.42 seconds
+
+WARNING: The Base SAS Software product with which RESULTS is associated will be expiring soon, and is
+WARNING: currently in warning mode to indicate this upcoming expiration. Please run PROC SETINIT to
+WARNING: obtain more information on your warning period.
+1    libname class "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files";
+NOTE: Libref CLASS was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+
+2    Proc import datafile= "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work
+2  ! Files\cereal.xls"
+3                 out= class.cereal replace;
+4                 ;
+5    run;
+
+NOTE: CLASS.CEREAL data set was successfully created.
+NOTE: The data set CLASS.CEREAL has 77 observations and 13 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.60 seconds
+      cpu time            0.20 seconds
+
+
+6    data cereal1;
+7    set class. cereal;
+8    2sugar=sugar/1000
+     -
+     180
+ERROR 180-322: Statement is not valid or it is used out of proper order.
+
+9    run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           16.92 seconds
+      cpu time            0.34 seconds
+
+
+
+10   data cereal1;
+11   set class. cereal;
+12   run;
+
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+13   proc contents data=class.cereal;
+NOTE: Writing HTML Body file: sashtml.htm
+14   run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.51 seconds
+      cpu time            0.18 seconds
+
+
+15   data cereal1;
+16   set class. cereal;
+17   where 2sugar=sugar/1000
+            -----
+            22
+            76
+ERROR 22-322: Syntax error, expecting one of the following: !, !!, &, *, **, +, -, /, <, <=, <>, =,
+              >, >=, AND, EQ, GE, GT, LE, LT, NE, OR, ^=, |, ||, ~=.
+
+ERROR 76-322: Syntax error, statement will be ignored.
+
+18   run;
+ERROR: Syntax error while parsing WHERE clause.
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+WARNING: Data set WORK.CEREAL1 was not replaced because this step was stopped.
+NOTE: DATA statement used (Total process time):
+      real time           1:18.56
+      cpu time            1.09 seconds
+
+
+
+19   data cereal1;
+20   set class. cereal;
+21   where 2sugar=sugar/1000;
+            -----
+            22
+            76
+ERROR: Syntax error while parsing WHERE clause.
+ERROR 22-322: Syntax error, expecting one of the following: !, !!, &, *, **, +, -, /, <, <=, <>, =,
+              >, >=, AND, EQ, GE, GT, LE, LT, NE, OR, ^=, |, ||, ~=.
+
+ERROR 76-322: Syntax error, statement will be ignored.
+
+22   run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+WARNING: Data set WORK.CEREAL1 was not replaced because this step was stopped.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+23   data cereal1;
+24   set class. cereal;
+25   run;
+
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+26   data cereal1 (where= 2sugar=sugar/1000);
+                          -
+                          23
+                           -----
+                           22
+ERROR: The WHERE data set option requires the where expression to be enclosed by parentheses.
+ERROR 23-7: Invalid value for the WHERE option.
+
+ERROR 22-7: Invalid option name SUGAR.
+
+27   set class.cereal;
+28   run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+29   data cereal1
+30   where= 2sugar=sugar/1000);
+          -                  -
+          22                 388
+          200                200
+                             76
+ERROR 22-322: Syntax error, expecting one of the following: a name, a quoted string, (, /, ;, _DATA_,
+              _LAST_, _NULL_.
+
+ERROR 388-185: Expecting an arithmetic operator.
+
+ERROR 200-322: The symbol is not recognized and will be ignored.
+
+ERROR 76-322: Syntax error, statement will be ignored.
+
+31   set class.cereal;
+32   run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+WARNING: Data set WORK.CEREAL1 was not replaced because this step was stopped.
+WARNING: The data set WORK.WHERE may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+33   data cereal1;
+34   set class. cereal;
+35   2sugar=sugar/1000;
+     -
+     180
+
+ERROR 180-322: Statement is not valid or it is used out of proper order.
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 13 variables.
+WARNING: Data set WORK.CEREAL1 was not replaced because this step was stopped.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+
+
+
+36   proc print data=cereal1;
+37   var mg sugar 2sugar;
+                  -
+                  22
+                  200
+ERROR: Variable MG not found.
+ERROR 22-322: Syntax error, expecting one of the following: a name, ;, -, /, :, _ALL_, _CHARACTER_,
+              _CHAR_, _NUMERIC_.
+ERROR 200-322: The symbol is not recognized and will be ignored.
+38   run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+39   data cereal1;
+40   set class. cereal;
+41   run;
+
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+42   data cereal1;
+43   set original_dataset;
+ERROR: File WORK.ORIGINAL_DATASET.DATA does not exist.
+44   sugar2=sugar / 1000;
+45   run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set WORK.CEREAL1 may be incomplete.  When this step was stopped there were 0
+         observations and 2 variables.
+WARNING: Data set WORK.CEREAL1 was not replaced because this step was stopped.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+46   data cereal1;
+47   set class.cereal;
+48   sugar2=sugar / 1000;
+49   run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 48:14
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+50   data cereal1 (keep=name cal sugar2);
+51   set class.cereal;
+52   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+
+
+53   data cereal1;
+54   set class.cereal;
+55   sugar2=sugar / 1000;
+56   run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 55:14
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+57   data cereal1 (keep=name cal sugar2);
+58   set class.cereal;
+59   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+
+
+NOTE: There were 77 observations read from the data set WORK.CEREAL1.
+NOTE: The data set CLASS.CEREAL1 has 77 observations and 2 variables.
+60   data cereal1;
+61   set class.cereal;
+62   sugar2=sugar / 1000;
+63   run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 62:14
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+64   data cereal1;
+65   set class.cereal;
+66   sugar2=sugar / 1000;
+67   run;
+
+NOTE: Missing values were generated as a result of performing an operation on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 66:14
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+NOTE: There were 77 observations read from the data set WORK.CEREAL1.
+NOTE: The data set CLASS.CEREAL1 has 77 observations and 14 variables.
+68   data cereal1 (keep=name cal sugar2);
+69   set class.cereal;
+70   run;
+
+ERROR: You cannot open WORK.CEREAL1.DATA for output access with member-level control because
+WORK.CEREAL1.DATA is in use by you in resource environment ViewTable Window.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+71   data cereal1 (keep=name cal sugar2);
+72   set class.cereal;
+73   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+
+
+74   data cereal (keep=name cal sugar2);
+75   set class.cereal;
+76   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+77   data cereal1
+78   (keep=name cal sugar2);
+79   set class.cereal;
+80   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+81   proc contents data=class.cereal1;
+82   run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+
+
+83   data cereal1
+84   (keep=name cal sugar2);
+85   set class.cereal;
+86   run;
+
+WARNING: The variable sugar2 in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+87   options validvarname= sugar2;
+             ------------
+             14
+ERROR 14-12: Invalid option value sugar2 for SAS option VALIDVARNAME.
+88   proc contents data=class.cereal1;
+89   run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+90   data cereal1(keep=name cal sugar2);
+91   set class.cereal1;
+92   run;
+
+NOTE: There were 77 observations read from the data set CLASS.CEREAL1.
+NOTE: The data set WORK.CEREAL1 has 77 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+93   proc export data=class.cereal1
+94   outfile="C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.xls"
+95   dbms=xls
+96   replace;
+97   sheet="cereal1";
+98   run;
+
+NOTE: The export data set has 77 observations and 14 variables.
+NOTE: "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.xls" file was
+      successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+
+
+99   proc export data=class.cereal1
+100  outfile="C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv"
+101  dbms=csv
+102  replace;
+103  run;
+
+104   /**********************************************************************
+105   *   PRODUCT:   SAS
+106   *   VERSION:   9.4
+107   *   CREATOR:   External File Interface
+108   *   DATE:      11SEP24
+109   *   DESC:      Generated SAS Datastep Code
+110   *   TEMPLATE SOURCE:  (None Specified.)
+111   ***********************************************************************/
+112      data _null_;
+113      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+114      %let _EFIREC_ = 0;     /* clear export record count macro variable */
+115      file 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv'
+115! delimiter=',' DSD DROPOVER lrecl=32767;
+116      if _n_ = 1 then        /* write column names or labels */
+117       do;
+118         put
+119            "name"
+120         ','
+121            "mfr"
+122         ','
+123            "type"
+124         ','
+125            "cal"
+126         ','
+127            "prot"
+128         ','
+129            "fat"
+130         ','
+131            "sod"
+132         ','
+133            "fiber"
+134         ','
+135            "carb"
+136         ','
+137            "sugar"
+138         ','
+139            "pot"
+140         ','
+141            "weight"
+142         ','
+143            "cups"
+144         ','
+145            "sugar2"
+146         ;
+147       end;
+148     set  CLASS.CEREAL1   end=EFIEOD;
+149         format name $38. ;
+150         format mfr $1. ;
+151         format type $1. ;
+152         format cal best12. ;
+153         format prot best12. ;
+154         format fat best12. ;
+155         format sod best12. ;
+156         format fiber best12. ;
+157         format carb best12. ;
+158         format sugar best12. ;
+159         format pot best12. ;
+160         format weight best12. ;
+161         format cups best12. ;
+162         format sugar2 best12. ;
+163       do;
+164         EFIOUT + 1;
+165         put name $ @;
+166         put mfr $ @;
+167         put type $ @;
+168         put cal @;
+169         put prot @;
+170         put fat @;
+171         put sod @;
+172         put fiber @;
+173         put carb @;
+174         put sugar @;
+175         put pot @;
+176         put weight @;
+177         put cups @;
+178         put sugar2 ;
+179         ;
+180       end;
+181      if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+182      if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+183      run;
+
+NOTE: The file 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv' is:
+      Filename=C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=11Sep2024:15:05:05,
+      Create Time=11Sep2024:15:05:05
+
+NOTE: 78 records were written to the file 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS
+      Work Files\cereal.csv'.
+      The minimum record length was 46.
+      The maximum record length was 87.
+NOTE: There were 77 observations read from the data set CLASS.CEREAL1.
+NOTE: DATA statement used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.00 seconds
+
+
+77 records created in C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv
+from CLASS.CEREAL1.
+
+
+NOTE: "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files\cereal.csv" file was
+      successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.25 seconds
+      cpu time            0.00 seconds
+
+
+

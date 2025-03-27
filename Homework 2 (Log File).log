@@ -1,0 +1,191 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - T&R, Site 70186129.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.22631  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.12 seconds
+      cpu time            0.21 seconds
+
+1    libname class 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files';
+NOTE: Libref CLASS was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+2    data class.soldbooks_with_profit;
+3    set class.soldbooks;
+4    profit=saleprice-cost;
+5    run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_PROFIT has 6918 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+
+
+6    *Print the first 10 observations of the dataset. Include the title “Book Shop”, remove the
+7    observation numbers from the report, and label Cost as Cost of Book.;
+8    proc print data=class.soldbooks_with_profit (obs=10)
+NOTE: Writing HTML Body file: sashtml.htm
+9    noobs label;
+10   title "Book Shop";
+11   label cost= 'Cost of Book';
+12   run;
+
+NOTE: There were 10 observations read from the data set CLASS.SOLDBOOKS_WITH_PROFIT.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.61 seconds
+      cpu time            0.12 seconds
+
+
+13   *Remove the title. Print observations 11 to 20. Sum the cost variable in the report.
+14   Then, break this total sum up by store (online or in store);
+15   proc sort data=class.soldbooks_with_profit;
+16   by store;
+17   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS_WITH_PROFIT.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_PROFIT has 6918 observations and 13 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+
+
+18   proc print data= class.soldbooks_with_profit(firstobs=11 obs=20)
+19   noobs label;
+20   label cost= 'Cost of Book';
+21   var section booktitle author cost store;
+22   sum cost;
+23   by store;
+24   run;
+
+NOTE: There were 10 observations read from the data set CLASS.SOLDBOOKS_WITH_PROFIT.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+25   *6. Create an accumulator variable that determines the total amount the store spent on the
+25 ! inventory;
+26   data class.soldbooks_with_inventory;
+27   set class.soldbooks;
+28   retain total_inventory_cost 0;
+29   total_inventory_cost + cost;
+30   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_INVENTORY has 6918 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+
+
+31   *7. Create another accumulator variable that determines the total amount made by the store in
+31 ! profit;
+32   data class.soldbooks_with_total_profit;
+33   set class.soldbooks;
+34   retain total_profit 0;
+35   profit=saleprice-cost;
+36   total_profit+profit;
+37   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_TOTAL_PROFIT has 6918 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+
+
+38   *8.The variable store is not standardized.
+39   Create a new variable called storetype that contains a 1 if the
+40   item was sold in the store and 0 if it was not;
+41   data class.soldbooks_with_storetype;
+42   set class.soldbooks;
+43   if store='Yes' then storetype=1;
+44   else storetype=0;
+45   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_STORETYPE has 6918 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+46   *9. Create another dataset that contains information on all of the internet orders.
+47   Do this in one step and calculate the total amount paid for each book as the saleprice plus
+47 ! mail.
+48   Also accumulate the amount made from the internet orders (profit);
+49   /* Create dataset for internet orders with total amount paid and accumulated profit */
+50   data class.internet_orders_summary;
+51   set class.soldbooks_with_storetype;
+52   if storetype = 0 then do;
+53   total_amount_paid = saleprice + mail;
+54   profit = saleprice - cost;
+55   retain total_internet_profit 0;
+56   total_internet_profit + profit;
+57   output;
+58   end;
+59   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS_WITH_STORETYPE.
+NOTE: The data set CLASS.INTERNET_ORDERS_SUMMARY has 5229 observations and 16 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+60   *11.Create a new dataset with total cost and
+61   total profit by different selling channel (in store or online;
+62   data class.soldbooks_with_profit;
+63   set class.soldbooks_with_storetype;
+64    profit = saleprice - cost;
+65   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS_WITH_STORETYPE.
+NOTE: The data set CLASS.SOLDBOOKS_WITH_PROFIT has 6918 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+66   proc summary data=class.soldbooks_with_profit nway;
+67   class storetype;
+68   var cost profit;
+69   output out=class.sales_summary_by_channel
+70   sum(cost)=total_cost
+71   sum(profit)=total_profit;
+72   run;
+
+NOTE: There were 6918 observations read from the data set CLASS.SOLDBOOKS_WITH_PROFIT.
+NOTE: The data set CLASS.SALES_SUMMARY_BY_CHANNEL has 2 observations and 5 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+73   *13.Examine the total amount of profit per day. Are there specific days that make more money;
+74   proc sql;
+75   create table class.profit_per_day as
+76   select date,sum(profit) as total_profit
+77   from class.soldbooks_with_profit
+78   group by date
+79   order by total_profit desc;
+NOTE: Table CLASS.PROFIT_PER_DAY created, with 26 rows and 2 columns.
+
+80   quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+

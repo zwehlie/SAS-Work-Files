@@ -1,0 +1,4 @@
+mfr	grade	age
+honda	B	5
+mazda	A	6
+toyota	A	9

@@ -1,0 +1,74 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - SFA T&R, Site 70086763.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+      SAS/ETS 15.3
+      SAS/IML 15.3
+      SAS/QC 15.3
+
+WARNING: Your system is scheduled to expire on October 1, 2024, which is 41 days from now. The SAS
+         System will no longer function on or after that date. Please contact your SAS Installation
+         Representative to obtain your updated SAS Installation Data (SID) file, which includes
+         SETINIT information.
+To locate the name of your SAS Installation Representative go to http://support.sas.com/repfinder and
+provide your site number 70086763 and company name as KENNESAW STATE UNIVERSITY - SFA T&R. On the SAS
+REP list provided, locate the REP for operating system Windows.
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.22631  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.15 seconds
+      cpu time            0.25 seconds
+
+WARNING: The Base SAS Software product with which RESULTS is associated will be expiring soon, and is
+WARNING: currently in warning mode to indicate this upcoming expiration. Please run PROC SETINIT to
+WARNING: obtain more information on your warning period.
+1    proc contents Data= libref.SAS -data set;
+NOTE: Writing HTML Body file: sashtml.htm
+1    proc contents Data= libref.SAS -data set;
+                                    -
+                                    22
+ERROR 22-322: Syntax error, expecting one of the following: ;, (, CENTILES, DATA, DETAILS, DIR,
+              DIRECTORY, FMTLEN, LIB, MEMTYPE, MT, MTYPE, NODETAILS, NODS, NOPRINT, ORDER, OUT, OUT2,
+              SHORT, VARNUM.
+
+1    proc contents Data= libref.SAS -data set;
+                                    -
+                                    200
+ERROR 200-322: The symbol is not recognized and will be ignored.
+
+ERROR: Libref LIBREF is not assigned.
+2    run;
+
+NOTE: Statements not processed because of errors noted above.
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.58 seconds
+      cpu time            0.10 seconds
+
+NOTE: The SAS System stopped processing this step because of errors.
+
+3    libname clinic "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files";
+NOTE: Libref CLINIC refers to the same physical library as TMP1.
+NOTE: Libref CLINIC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+4    libname clinic "C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files";
+NOTE: Libref CLINIC refers to the same physical library as TMP1.
+NOTE: Libref CLINIC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+5    proc contents Data= clinic.admit;
+6    run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.32 seconds
+      cpu time            0.00 seconds
+
+

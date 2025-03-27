@@ -1,0 +1,62 @@
+libname class 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files';
+*2.	(70 points) Continue of HW2, re-starting from the original soldbook dataset.;
+
+*a.	(5 points) Format all the dollar values appropriately so there are 2 decimal places and a dollar sign.;
+data class.soldbooks;
+set class.soldbooks;
+format cost dollar8.2;
+format listprice dollar8.2;
+format saleprice dollar8.2;
+*b.	(5 points) Format the date variable so it has day/month/year formatting. ;
+proc print data=class.soldbooks;
+var section booktitle author publisher cost listprice saleprice NumberHits date;
+format date ddmmyy10.;
+run;
+
+*c.	(20 points) Using DATA STEP (not procedures), create a new dataset with total cost and total profit by different selling channel (in store or online).;
+data class.channel;
+set class.soldbooks;
+if store = 'Yes' then do;
+total_cost_store + cost;
+total_profit_store + profit;
+end;
+
+if store = 'No' then do;
+total_cost_online + cost;
+total_profit_online + profit;
+end;
+run;
+
+*d.	(20 points) Use a DATA STEP to find the volume of every day (accumulated numberhits).  What is the day with the highest volume?  Then use PROC FREQ to determine the day with the highest number of transactions (each observation is one transaction) in the month of the September.  Are these two dates the same?;
+*18873 had the highest number of transactions during September while 18894 had the highest accumulated numberhits.;
+data class.daily_volume;
+set class.soldbooks;
+by date;
+retain accumulated_hits 0;
+accumulated_hits + NumberHits;
+proc sort data=class.daily_volume;
+by descending accumulated_hits;
+run;
+proc freq data=class.soldbooks;
+where month(date) = 9;
+tables date / nocum;
+title "September Transactions";
+run;
+
+*e.	(20 points) Create a new data set with the total amount of profit per day information. Are there specific days that make more money? ; 
+proc sort data=class.soldbooks;
+by date;
+run;
+data class.profit_per_day;
+set class.soldbooks;
+
+profit = saleprice - cost;
+retain total_profit 0;
+by date;
+if first.date then total_profit = 0;
+total_profit + profit;
+if last.date then output;
+run;
+proc print data=class.profit_per_day;
+var date total_profit;
+run;
