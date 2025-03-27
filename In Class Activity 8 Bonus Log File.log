@@ -1,0 +1,157 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - T&R, Site 70186129.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.26100  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.47 seconds
+      cpu time            1.20 seconds
+
+1    libname class 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files';
+NOTE: Libref CLASS was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+
+2    data class.my_birthday;
+3    my_name="Zachary W";
+4    birth_date='22Feb1999'd;
+5    format birth_date date9.;
+6    run;
+
+NOTE: The data set CLASS.MY_BIRTHDAY has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+
+
+7    proc print data=class.my_birthday;
+NOTE: Writing HTML Body file: sashtml.htm
+8    run;
+
+NOTE: There were 1 observations read from the data set CLASS.MY_BIRTHDAY.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.57 seconds
+      cpu time            0.42 seconds
+
+
+9    data age_days;
+10   age_days= today()-'22Feb1999'd;
+11   run;
+
+NOTE: The data set WORK.AGE_DAYS has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+12   proc print data=age_days;
+13   run;
+
+NOTE: There were 1 observations read from the data set WORK.AGE_DAYS.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.00 seconds
+
+
+14   *3.Calculates how many weeks old you are;
+15   data age_weeks;
+16   age_weeks=(today()-'22Feb1999'd)/7;
+17   run;
+
+NOTE: The data set WORK.AGE_WEEKS has 1 observations and 1 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+18   proc print data=age_weeks;
+19   run;
+
+NOTE: There were 1 observations read from the data set WORK.AGE_WEEKS.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+
+
+20   *4. Calculates how many months old you are;
+21   data age_months;
+22   birth_date='22Feb1999'd;
+23   format birth_date date9.;
+24   age_months=(today()-birth_date)/30.44;
+25   run;
+
+NOTE: The data set WORK.AGE_MONTHS has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+
+
+26   proc print data=age_months;
+27   run;
+
+NOTE: There were 1 observations read from the data set WORK.AGE_MONTHS.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+28
+29   *5. Calculates how many years old you are;
+30   data age_years;
+31   birth_date='22Feb1999'd;
+32   format birth_date date9.;
+33   age_years= (today()-birth_date)/365;
+34   run;
+
+NOTE: The data set WORK.AGE_YEARS has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+35   proc print data=age_years;
+36   run;
+
+NOTE: There were 1 observations read from the data set WORK.AGE_YEARS.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+
+
+37
+38   *6. And prints how many days, weeks, months, and
+39   years old you are to the log;
+40   data age_all;
+41   birth_date='22Feb1999'd;
+42   format birth_date date9.;
+43   age_days= today()-'22Feb1999'd;
+44   age_weeks=(today()-'22Feb1999'd)/7;
+45   age_months=(today()-birth_date)/30.44;
+46   age_years= (today()-birth_date)/365;
+47   run;
+
+NOTE: The data set WORK.AGE_ALL has 1 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+48   proc print data=age_all noobs;
+49   run;
+
+NOTE: There were 1 observations read from the data set WORK.AGE_ALL.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+
+

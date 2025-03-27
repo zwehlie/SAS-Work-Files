@@ -1,0 +1,85 @@
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA.
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8)
+      Licensed to KENNESAW STATE UNIVERSITY - T&R, Site 70186129.
+NOTE: This session is executing on the X64_WIN+HOME  platform.
+
+
+
+NOTE: Analytical products:
+
+      SAS/STAT 15.3
+
+NOTE: Additional host information:
+
+ X64_WIN+HOME WIN 10.0.22631  Workstation
+
+NOTE: SAS initialization used:
+      real time           1.13 seconds
+      cpu time            0.34 seconds
+
+1    libname class 'C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files';
+NOTE: Libref CLASS was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: C:\Users\zwehl\OneDrive - Kennesaw State University\SAS Work Files
+
+2    proc contents data=class.Claims;
+NOTE: Writing HTML Body file: sashtml.htm
+3    run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.51 seconds
+      cpu time            0.06 seconds
+
+
+4    proc sort data= class.Claims;
+5    by dos decending charges;
+6    run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+
+
+7    data cumulative_total;
+8    set class.Claims;
+9    by dos;
+10   retain cum_total 0;
+11   if first.dos then cum_total=0;
+12   cum_total+amount;
+13   run;
+
+NOTE: Variable amount is uninitialized.
+NOTE: There were 189 observations read from the data set CLASS.CLAIMS.
+NOTE: The data set WORK.CUMULATIVE_TOTAL has 189 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+14   data cumulative_total;
+15      set CLASS.CLAIMS;
+16      by dos;
+17      retain cum_total 0;
+18      if first.dos then cum_total = 0;
+19      cum_total + charges;
+20   run;
+
+NOTE: There were 189 observations read from the data set CLASS.CLAIMS.
+NOTE: The data set WORK.CUMULATIVE_TOTAL has 189 observations and 10 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+21   proc print data=cumulative_total;
+22      var dos charges cum_total;
+23      title "Cumulative Total Data after Each Day";
+24   run;
+
+NOTE: There were 189 observations read from the data set WORK.CUMULATIVE_TOTAL.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
